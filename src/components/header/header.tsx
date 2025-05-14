@@ -1,29 +1,46 @@
 import React from 'react';
 import './header.scss';
+import { HashRouter as Router, Route, Routes, NavLink } from "react-router-dom";
+
+// Import des composants de pages
+import Home from '../pages/home/home';
+import Dashboard from '../pages/dashboard/dashboard';
+import Settings from '../pages/settings/settings';
+import About from '../pages/about/about';
 
 const Header: React.FC = () => {
     return (
-        <>
+        <Router>
             <header>
-                <h1>Stitchy</h1>
-                -
-                <h4>Your crochet friend</h4>
+                <div className="header-title">
+                    <h1>Stitchy</h1> -
+                    <h4>Your crochet friend</h4>
+                </div>
+                <div className="header-nav">
+                    <ul>
+                        <li><NavLink to="/" end className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
+                            Home</NavLink>
+                        </li>
+                        <li><NavLink to="/dashboard" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
+                            Dashboard</NavLink>
+                        </li>
+                        <li><NavLink to="/settings" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
+                            Settings</NavLink>
+                        </li>
+                        <li><NavLink to="/about" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
+                            About</NavLink>
+                        </li>
+                    </ul>
+                </div>
             </header>
-            <div className="header-nav">
-                <ul>
-                    <li>
-                        <button>Add a counter</button>
-                    </li>
-                    <li>
-                        <button>Add a counter</button>
-                    </li>
-                    <li>
-                        <button>Add a counter</button>
-                    </li>
-                </ul>
-            </div>
-        </>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/about" element={<About />} />
+            </Routes>
+        </Router>
     );
-};
+}
 
 export default Header;

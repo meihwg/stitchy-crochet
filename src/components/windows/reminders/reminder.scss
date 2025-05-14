@@ -1,0 +1,116 @@
+.reminder {
+    background-color: var(--color-accent);
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    transition: all 0.3s ease;
+
+    h3 {
+        color: var(--color-accent-secondary);
+        margin: 0 0 8px 0;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    p {
+        color: var(--color-accent-secondary);
+        margin: 0 0 12px 0;
+        font-size: 0.9rem;
+        display: inline;
+    }
+
+    .reminder-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 0.9rem;
+        color: var(--color-accent-secondary);
+        margin-top: 20px;
+
+        .frequency-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            button {
+                background-color: var(--color-primary);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                padding: 0;
+                font-size: 1rem;
+                line-height: 1;
+
+                &:hover:not(:disabled) {
+                    background-color: var(--color-tertiary);
+                }
+
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+            }
+
+            span {
+                background-color: var(--white);
+                padding: 4px 8px;
+                border-radius: 4px;
+            }
+        }
+
+        > span {
+            background-color: var(--white);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .reminder-value {
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            border-radius: 4px;
+            border: 1px solid var(--color-primary);
+            padding: 7px 40px;
+        }
+    }
+
+    &.alert {
+        background-color: var(--color-primary);
+
+        h3, p {
+            color: var(--white);
+        }
+
+        .reminder-info {
+            color: var(--white);
+
+            span {
+                background-color: var(--white);
+                color: var(--color-primary);
+
+                p {
+                    color: var(--color-accent-secondary);
+                }
+            }
+
+            button {
+                background-color: var(--color-accent);
+                color: var(--color-accent-secondary);
+
+                &:hover:not(:disabled) {
+                    background-color: var(--white);
+                }
+            }
+
+            .reminder-value {
+                color: var(--color-accent-secondary);
+            }
+        }
+    }
+}
