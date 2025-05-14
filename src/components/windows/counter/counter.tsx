@@ -11,9 +11,10 @@ interface CounterProps {
     onDecrement: (value?: number) => void;
     onReset: () => void;
     onDelete: () => void;
+    onUpdate: (value: number) => void;
 }
 
-const Counter: React.FC<CounterProps> = ({ title, description, value, onIncrement, onDecrement, onReset, onDelete }) => {
+const Counter: React.FC<CounterProps> = ({ title, description, value, onIncrement, onDecrement, onReset, onDelete, onUpdate }) => {
     return <div className="counter">
         <div className="counter-header">
             <div className="counter-header-spacer"></div>
@@ -23,7 +24,9 @@ const Counter: React.FC<CounterProps> = ({ title, description, value, onIncremen
             </button>
         </div>
         <p>{description}</p>
-        <div className="counter-value">{value}</div>
+        <div className="counter-value">
+            <input type="number" value={value} onChange={(e) => onUpdate(parseInt(e.target.value))} />
+        </div>
         <div>
             <div className="counter-buttons">
                 <button onClick={onReset}>Reset</button>

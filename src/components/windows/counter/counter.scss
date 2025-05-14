@@ -25,7 +25,7 @@
         }
     }
 
-    .counter-value {
+    .counter-value input {
         border: 1px solid var(--color-accent-secondary);
         border-radius: 5px;
         padding: 10px 50px;
@@ -34,6 +34,8 @@
         color: var(--color-accent-secondary);
         background-color: var(--color-accent);
         margin: 20px;
+        width: 50%;
+        text-align: center;
     }
 
     .counter-buttons {

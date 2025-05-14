@@ -144,6 +144,16 @@ const Dashboard: React.FC = () => {
     }
 
     /**
+     * Met à jour la valeur d'un compteur
+     * 
+     * @param index : index du compteur à mettre à jour
+     * @param value : valeur cible
+     */
+    const onUpdateCounter = (index: number, value: number) => {
+        setCounters(counters.map((counter, i) => i === index ? { ...counter, value: value } : counter));
+    }
+
+    /**
      * Réinitialise un compteur
      * 
      * @param index : index du compteur à réinitialiser
@@ -259,6 +269,7 @@ const Dashboard: React.FC = () => {
                             onDecrement={(value) => decrement(index, value)} 
                             onReset={() => reset(index)} 
                             onDelete={() => removeCounter(index)} 
+                            onUpdate={(value) => onUpdateCounter(index, value)}
                         />
                         {reminders
                             .filter(reminder => reminder.counterID === counter.id)
@@ -286,7 +297,11 @@ const Dashboard: React.FC = () => {
                 title="Add a counter"
             >
                 <form onSubmit={handleAddCounter}>
-                    <p>Add a counter to count stitches or rows, or anything else you want to count.</p>
+                    <p>Add a counter to count stitches or rows, or anything else you want to count.
+                        <br />
+                        <br />
+                        You can create a decresing counter by editing the value after creating the counter. Then, you can decrement the counter to reach 0.
+                    </p>
                     <div className="form-group">
                         <label htmlFor="counter-title">Counter name</label>
                         <input
