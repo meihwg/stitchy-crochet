@@ -1,0 +1,14 @@
+body {
+    background-color: var(--color-bg);
+    min-height: 100vh;
+}
+
+section {
+    width: 100vw;
+    background-color: var(--white);
+    margin: 50px 0;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    scroll-margin-top: 100px;
+}
