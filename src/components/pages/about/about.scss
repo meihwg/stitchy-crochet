@@ -1,28 +1,24 @@
 .about {
-    padding: 2rem;
+    padding: 4rem 8rem;
 
-    h1 {
-        color: var(--primary-color);
-        margin-bottom: 2rem;
-    }
-
-    .about-content {
-        max-width: 800px;
-        margin: 0 auto;
+    .about-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 50vh;
+        padding: 0 4% 8% 4%;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
         
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        ul {
-            list-style-type: disc;
-            padding-left: 2rem;
-            
-            li {
-                margin: 0.5rem 0;
-                font-size: 1.1rem;
-            }
+        h2 {
+            font-size: 2rem;
+            margin: 40px 0 10px 0;
+            color: var(--color-primary);
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
         }
     }
 } 

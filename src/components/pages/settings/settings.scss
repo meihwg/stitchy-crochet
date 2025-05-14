@@ -1,14 +1,24 @@
 .settings {
-    padding: 2rem;
+    padding: 4rem 8rem;
 
-    h1 {
-        color: var(--primary-color);
-        margin-bottom: 2rem;
-    }
-
-    .settings-content {
-        padding: 1rem;
-        background-color: var(--background-secondary);
-        border-radius: 8px;
+    .settings-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 50vh;
+        padding: 0 4% 8% 4%;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        
+        h2 {
+            font-size: 2rem;
+            margin: 40px 0 10px 0;
+            color: var(--color-primary);
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+        }
     }
 } 
