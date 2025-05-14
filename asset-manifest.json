@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/stitchy-crochet/static/css/main.3e63b2ea.css",
-    "main.js": "/stitchy-crochet/static/js/main.777f5a40.js",
+    "main.css": "/stitchy-crochet/static/css/main.cd15918d.css",
+    "main.js": "/stitchy-crochet/static/js/main.306d548d.js",
     "index.html": "/stitchy-crochet/index.html",
-    "main.3e63b2ea.css.map": "/stitchy-crochet/static/css/main.3e63b2ea.css.map",
-    "main.777f5a40.js.map": "/stitchy-crochet/static/js/main.777f5a40.js.map"
+    "main.cd15918d.css.map": "/stitchy-crochet/static/css/main.cd15918d.css.map",
+    "main.306d548d.js.map": "/stitchy-crochet/static/js/main.306d548d.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e63b2ea.css",
-    "static/js/main.777f5a40.js"
+    "static/css/main.cd15918d.css",
+    "static/js/main.306d548d.js"
   ]
 }
