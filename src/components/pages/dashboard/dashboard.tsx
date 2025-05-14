@@ -283,11 +283,12 @@ const Dashboard: React.FC = () => {
             <Modal 
                 isOpen={isAddCounterModalOpen}
                 onClose={() => setIsAddCounterModalOpen(false)}
-                title="Ajouter un compteur"
+                title="Add a counter"
             >
                 <form onSubmit={handleAddCounter}>
+                    <p>Add a counter to count stitches or rows, or anything else you want to count.</p>
                     <div className="form-group">
-                        <label htmlFor="counter-title">Nom du compteur</label>
+                        <label htmlFor="counter-title">Counter name</label>
                         <input
                             type="text"
                             id="counter-title"
@@ -311,10 +312,10 @@ const Dashboard: React.FC = () => {
                             className="secondary"
                             onClick={() => setIsAddCounterModalOpen(false)}
                         >
-                            Annuler
+                            Cancel
                         </button>
                         <button type="submit" className="primary">
-                            Ajouter
+                            Add counter
                         </button>
                     </div>
                 </form>
@@ -323,11 +324,16 @@ const Dashboard: React.FC = () => {
             <Modal 
                 isOpen={isAddReminderModalOpen}
                 onClose={() => setIsAddReminderModalOpen(false)}
-                title="Ajouter un rappel"
+                title="Add a reminder"
             >
                 <form onSubmit={handleAddReminder}>
+                    <p>Add a reminder to remind you to do something at a specific frequency, it is associated with a counter.
+                        <br />
+                        <br />
+                        For example, if you want to remind yourself to do an increase every 4 stitches, you can add a reminder with a frequency of 4 and a counter associated with the number of stitches.
+                    </p>
                     <div className="form-group">
-                        <label htmlFor="reminder-title">Nom du rappel</label>
+                        <label htmlFor="reminder-title">Reminder name</label>
                         <input
                             type="text"
                             id="reminder-title"
@@ -346,7 +352,7 @@ const Dashboard: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="reminder-frequency">Fréquence (nombre de rangs)</label>
+                        <label htmlFor="reminder-frequency">Frequency</label>
                         <input
                             type="number"
                             id="reminder-frequency"
@@ -357,14 +363,14 @@ const Dashboard: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="reminder-counter">Compteur associé</label>
+                        <label htmlFor="reminder-counter">Associated counter</label>
                         <select
                             id="reminder-counter"
                             value={newReminder.counterID}
                             onChange={(e) => setNewReminder({ ...newReminder, counterID: parseInt(e.target.value) })}
                             required
                         >
-                            <option value="-1">Sélectionnez un compteur</option>
+                            <option value="-1">Select a counter</option>
                             {counters.map((counter, index) => (
                                 <option key={index} value={index}>
                                     {counter.title}
@@ -378,14 +384,14 @@ const Dashboard: React.FC = () => {
                             className="secondary"
                             onClick={() => setIsAddReminderModalOpen(false)}
                         >
-                            Annuler
+                            Cancel
                         </button>
                         <button 
                             type="submit" 
                             className="primary"
                             disabled={newReminder.counterID === -1}
                         >
-                            Ajouter
+                            Add reminder
                         </button>
                     </div>
                 </form>
