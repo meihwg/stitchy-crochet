@@ -24,7 +24,7 @@ export const defaultReminders = [
         id: 0,
         title: 'Increase',
         description: 'To know when to increase',
-        value: 2,
+        value: 1,
         frequency: 2,
         counterID: 0
     },
@@ -32,7 +32,7 @@ export const defaultReminders = [
         id: 1,
         title: 'Decrease',
         description: 'To know when to decrease',
-        value: 2,
+        value: 1,
         frequency: 2,
         counterID: 2
     }
