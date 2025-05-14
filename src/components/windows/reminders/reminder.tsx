@@ -1,6 +1,8 @@
 import React from 'react';
 import './reminder.scss';
 
+import { Trash } from '@phosphor-icons/react';
+
 interface ReminderProps {
     title: string;
     description: string;
@@ -9,12 +11,27 @@ interface ReminderProps {
     counterID: number;
     counterTitle: string;
     onFrequencyChange: (change: number) => void;
+    onDelete: () => void;
 }
 
-const Reminder: React.FC<ReminderProps> = ({ title, description, value, frequency, counterID, counterTitle, onFrequencyChange }) => {
+const Reminder: React.FC<ReminderProps> = ({ 
+    title, 
+    description, 
+    value, 
+    frequency, 
+    counterID, 
+    counterTitle, 
+    onFrequencyChange,
+    onDelete 
+}) => {
     return (
         <div className={`reminder ${value === 0 ? 'alert' : ''}`}>
-            <h3>{title}</h3>
+            <div className="reminder-header">
+                <h3>{title}</h3>
+                <button className="delete-button" onClick={onDelete}>
+                    <Trash size={20} weight="bold" />
+                </button>
+            </div>
             <p>{description}</p>
             <div className="reminder-info">
                 <div className="frequency-control">

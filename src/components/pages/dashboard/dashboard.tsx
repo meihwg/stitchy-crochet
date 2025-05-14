@@ -43,6 +43,11 @@ const Dashboard: React.FC = () => {
         counterID: -1
     });
 
+    /**
+     * Ajoute un nouveau compteur
+     * 
+     * @param e : événement de soumission du formulaire
+     */
     const handleAddCounter = (e: React.FormEvent) => {
         e.preventDefault();
         setCounters([...counters, { ...newCounter, value: 0, id: counters.length }]);
@@ -50,13 +55,41 @@ const Dashboard: React.FC = () => {
         setIsAddCounterModalOpen(false);
     }
 
+    /**
+     * Supprime un compteur
+     * 
+     * @param index : index du compteur à supprimer
+     */
     const removeCounter = (index: number) => {
-        setCounters(counters.filter((_, i) => i !== index));
+        if (window.confirm('Are you sure you want to delete this counter and its associated reminders ?')) {
+            setCounters(counters.filter((_, i) => i !== index));
+            setReminders(reminders.filter(reminder => reminder.counterID !== counters[index].id));
+        }
     }
 
+    /**
+     * Supprime un rappel
+     * 
+     * @param reminderId : id du rappel à supprimer
+     */
+    const removeReminder = (reminderId: number) => {
+        if (window.confirm('Are you sure you want to delete this reminder ?')) {
+            setReminders(reminders.filter(reminder => reminder.id !== reminderId));
+        }
+    }
+
+    /**
+     * Ajoute un nouveau rappel
+     * 
+     * @param e : événement de soumission du formulaire
+     */
     const handleAddReminder = (e: React.FormEvent) => {
         e.preventDefault();
-        setReminders([...reminders, { ...newReminder, value: 2, id: reminders.length }]);
+        setReminders([...reminders, { 
+            ...newReminder, 
+            value: newReminder.frequency - 1, 
+            id: reminders.length 
+        }]);
         setNewReminder({
             title: '',
             description: '',
@@ -66,6 +99,12 @@ const Dashboard: React.FC = () => {
         setIsAddReminderModalOpen(false);
     }
 
+    /**
+     * Incrémente un compteur
+     * 
+     * @param index : index du compteur à incrémenter
+     * @param value : valeur à incrémenter
+     */
     const increment = (index: number, value: number = 1) => {
         setCounters(counters.map((counter, i) => i === index ? { ...counter, value: counter.value + value } : counter));
         
@@ -75,40 +114,69 @@ const Dashboard: React.FC = () => {
                 const newValue = reminder.value - value;
                 return { 
                     ...reminder, 
-                    value: newValue < 0 ? reminder.frequency : newValue 
+                    value: newValue < 0 ? reminder.frequency -1 : newValue
                 };
             }
             return reminder;
         }));
     }
 
+    /**
+     * Décrémente un compteur
+     * 
+     * @param index : index du compteur à décrémenter
+     * @param value : valeur à décrémenter
+     */
     const decrement = (index: number, value: number = 1) => {
         setCounters(counters.map((counter, i) => i === index ? { ...counter, value: counter.value - value } : counter));
         
         const counter = counters[index];
-        setReminders(reminders.map(reminder => 
-            reminder.counterID === counter.id 
-                ? { ...reminder, value: Math.min(reminder.frequency, reminder.value + value) }
-                : reminder
-        ));
+        setReminders(reminders.map(reminder => {
+            if (reminder.counterID === counter.id) {
+                const newValue = reminder.value + value;
+                return { 
+                    ...reminder, 
+                    value: newValue > reminder.frequency -1 ? 0 : newValue
+                };
+            }
+            return reminder;
+        }));
     }
 
+    /**
+     * Réinitialise un compteur
+     * 
+     * @param index : index du compteur à réinitialiser
+     */
     const reset = (index: number) => {
         setCounters(counters.map((counter, i) => i === index ? { ...counter, value: 0 } : counter));
     }
 
+    /**
+     * Met à jour la fréquence d'un rappel
+     * 
+     * @param reminderId : id du rappel à mettre à jour
+     * @param change : valeur à changer
+     */
     const updateReminderFrequency = (reminderId: number, change: number) => {
         setReminders(reminders.map(reminder => 
             reminder.id === reminderId 
-                ? { ...reminder, frequency: Math.max(1, reminder.frequency + change), value: Math.max(1, reminder.frequency + change) }
+                ? { ...reminder, frequency: Math.max(1, reminder.frequency + change), value: Math.max(1, reminder.frequency-1 + change) }
                 : reminder
         ));
     }
 
+    /**
+     * Sauvegarde les compteurs dans le localStorage
+     */
     const saveCounters = () => {
         localStorage.setItem('counters', JSON.stringify(counters));
     }
 
+    /**
+     * Charge les compteurs depuis le localStorage
+     * si aucun compteur n'est trouvé, on initialise les compteurs par défaut
+     */
     const loadCounters = () => {
         const savedCounters = localStorage.getItem('counters');
         if (savedCounters) {
@@ -123,10 +191,17 @@ const Dashboard: React.FC = () => {
         }
     }
 
+    /**
+     * Sauvegarde les rappels dans le localStorage
+     */
     const saveReminders = () => {
         localStorage.setItem('reminders', JSON.stringify(reminders));
     }
 
+    /**
+     * Charge les rappels depuis le localStorage
+     * si aucun rappel n'est trouvé, on initialise les rappels par défaut
+     */
     const loadReminders = () => {
         const savedReminders = localStorage.getItem('reminders');
         if (savedReminders) {
@@ -141,15 +216,24 @@ const Dashboard: React.FC = () => {
         }
     }
 
+    /**
+     * Charge les compteurs et les rappels depuis le localStorage lorsque le composant est monté
+     */
     useEffect(() => {
         loadCounters();
         loadReminders();
     }, []);
 
+    /**
+     * Sauvegarde les compteurs dans le localStorage lorsque leurs valeurs changent
+     */
     useEffect(() => {
         saveCounters();
     }, [counters]);
 
+    /**
+     * Sauvegarde les rappels dans le localStorage lorsque leurs valeurs changent
+     */
     useEffect(() => {
         saveReminders();
     }, [reminders]);
@@ -188,6 +272,7 @@ const Dashboard: React.FC = () => {
                                     counterID={reminder.counterID}
                                     counterTitle={counter.title}
                                     onFrequencyChange={(change) => updateReminderFrequency(reminder.id, change)}
+                                    onDelete={() => removeReminder(reminder.id)}
                                 />
                             ))
                         }
