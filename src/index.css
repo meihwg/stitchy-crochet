@@ -71,5 +71,4 @@ a {
 }
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-primary);
-  border-radius: 10px;
 }
