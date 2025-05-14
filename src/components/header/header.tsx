@@ -4,7 +4,8 @@ import { HashRouter as Router, Route, Routes, NavLink } from "react-router-dom";
 
 // Import des composants de pages
 import Home from '../pages/home/home';
-import Dashboard from '../pages/dashboard/dashboard';
+import Counters from '../pages/counters/counters';
+import Sheets from '../pages/sheets/sheets';
 import Settings from '../pages/settings/settings';
 import About from '../pages/about/about';
 
@@ -21,8 +22,12 @@ const Header: React.FC = () => {
                         <li><NavLink to="/" end className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
                             Home</NavLink>
                         </li>
-                        <li><NavLink to="/dashboard" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
-                            Dashboard</NavLink>
+                        <li><NavLink to="/counters" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
+                            Counters</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/sheets" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
+                            Cheat sheets</NavLink>
                         </li>
                         <li><NavLink to="/settings" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
                             Settings</NavLink>
@@ -35,7 +40,8 @@ const Header: React.FC = () => {
             </header>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/counters" element={<Counters />} />
+                <Route path="/sheets" element={<Sheets />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/about" element={<About />} />
             </Routes>

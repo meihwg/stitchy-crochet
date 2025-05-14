@@ -38,7 +38,8 @@ const Home: React.FC = () => {
                             
                 <h3>What's new ?</h3>
                 <p>
-                    <span><span><WarningCircle size={24} weight="duotone" color="var(--color-primary)" className="warning-icon" />14/05/2025 </span> - Created the counters</span>
+                    <span><span><WarningCircle size={24} weight="duotone" color="var(--color-primary)" className="warning-icon" />14/05/2025 </span> - Created the cheat sheet page</span>
+                    <span><span><WarningCircle size={24} weight="duotone" color="var(--color-primary)" className="warning-icon" />14/05/2025 </span> - Created the counters page</span>
                     <span><span><WarningCircle size={24} weight="duotone" color="var(--color-primary)" className="warning-icon" />14/05/2025 </span> - Added all the pages</span>
                     <span><span><WarningCircle size={24} weight="duotone" color="var(--color-primary)" className="warning-icon" />14/05/2025 </span> - Created the base code</span>
                 </p>

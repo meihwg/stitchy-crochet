@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './dashboard.scss';
+import './counters.scss';
 
 import Counter from '../../windows/counter/counter';
 import Reminder from '../../windows/reminders/reminder';
@@ -22,7 +22,7 @@ interface ReminderItem {
     counterID: number;
 }
 
-const Dashboard: React.FC = () => {
+const Counters: React.FC = () => {
     const [counters, setCounters] = useState<CounterItem[]>([]);
     const [reminders, setReminders] = useState<ReminderItem[]>([]);
     const [isAddCounterModalOpen, setIsAddCounterModalOpen] = useState(false);
@@ -250,7 +250,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="dashboard">
-            <div className="dashboard-actions">
+            <div className="nav-secondary">
                 <button onClick={() => setIsAddCounterModalOpen(true)} className="action-button">
                     Add a counter
                 </button>
@@ -415,4 +415,4 @@ const Dashboard: React.FC = () => {
     );
 }
 
-export default Dashboard; 
+export default Counters; 

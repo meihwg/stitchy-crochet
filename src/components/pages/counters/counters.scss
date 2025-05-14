@@ -1,0 +1,16 @@
+.dashboard {
+    min-height: 100vh;
+
+    .counters-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .counter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
