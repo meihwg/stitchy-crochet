@@ -158,10 +158,10 @@ const Dashboard: React.FC = () => {
         <div className="dashboard">
             <div className="dashboard-actions">
                 <button onClick={() => setIsAddCounterModalOpen(true)} className="action-button">
-                    Ajouter un compteur
+                    Add a counter
                 </button>
                 <button onClick={() => setIsAddReminderModalOpen(true)} className="action-button">
-                    Ajouter un rappel
+                    Add a reminder
                 </button>
             </div>
             <div className="counters-container">
