@@ -58,11 +58,26 @@ h2 {
 p, a, span, label {
   color: var(--color-text);
 }
+
 p {
   font-size: 0.9rem;
 }
+
 a {
   text-decoration: none;
+}
+
+.icon-fr {
+  background: url("/public/img/icons/fr.png") no-repeat center 50%/cover;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+}
+.icon-uk {
+  background: url("/public/img/icons/uk.png") no-repeat center 50%/cover;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
 }
 
 ::-webkit-scrollbar {
