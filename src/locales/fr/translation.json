@@ -34,7 +34,10 @@
 
     "settings_description": "... A venir !",
 
-    "about_description": "... A venir !",
+    "about_description": "Stitchy est une application de crochet multifonction. Son but est de vous aider dans votre parcours crochet. <br> Stitchy est développé par Mei, une débutante en crochet, les outils et les informations présentés peuvent donc être imparfaits ou incorrects. N'hésitez pas à me contacter si vous avez des retours ou des suggestions. <br> Vous pouvez aussi consulter la <a href='https://github.com/meihwg'>base de code</a> sur mon Github. <br> Merci d'utiliser Stitchy ! ;)",
+    "contact": "Contact",
+    "website": "Site web de développement",
+    "instagram": "Instagram crochet",
 
     "stitches": "Mailles",
     "stitches_description": "Nombre de mailles sur cette rangée",

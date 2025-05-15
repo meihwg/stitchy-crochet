@@ -33,7 +33,10 @@
 
     "settings_description": "... Coming soon !",
 
-    "about_description": "... Coming soon !",
+    "about_description": "Stitchy is a multi-purpose crochet app. Its purpose is to help you during your crochet journey. <br> Stitchy is developed by Mei, a beginner crocheter, so it may not be perfect or correct. Feel free to contact me if you have any suggestions or feedback. <br> You can also check <a href='https://github.com/meihwg'>the source code</a> on my GitHub. <br> Thank you for using Stitchy !",
+    "contact": "Contact",
+    "website": "Developer website",
+    "instagram": "Crochet Instagram",
 
     "stitches": "Stitches",
     "stitches_description": "Number of stitches on this row",
