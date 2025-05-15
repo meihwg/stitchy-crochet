@@ -25,7 +25,7 @@ const Counter: React.FC<CounterProps> = ({ title, description, value, onIncremen
         </div>
         <p>{description}</p>
         <div className="counter-value">
-            <input type="number" value={value} onChange={(e) => onUpdate(parseInt(e.target.value))} />
+        <input type="number" value={value === 0 ? "0" : value.toString().replace(/^0+/, '')} onChange={(e) => onUpdate(e.target.value === '' ? 0 : parseInt(e.target.value))} />
         </div>
         <div>
             <div className="counter-buttons">

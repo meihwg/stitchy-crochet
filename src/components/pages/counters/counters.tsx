@@ -150,7 +150,21 @@ const Counters: React.FC = () => {
      * @param value : valeur cible
      */
     const onUpdateCounter = (index: number, value: number) => {
+        const oldValue = counters[index].value;
+        const difference = value - oldValue;
         setCounters(counters.map((counter, i) => i === index ? { ...counter, value: value } : counter));
+        
+        const counter = counters[index];
+        setReminders(reminders.map(reminder => {
+            if (reminder.counterID === counter.id) {
+                const newValue = reminder.value - difference;
+                return { 
+                    ...reminder, 
+                    value: newValue < 0 ? reminder.frequency - 1 : (newValue > reminder.frequency - 1 ? 0 : newValue)
+                };
+            }
+            return reminder;
+        }));
     }
 
     /**
@@ -160,6 +174,14 @@ const Counters: React.FC = () => {
      */
     const reset = (index: number) => {
         setCounters(counters.map((counter, i) => i === index ? { ...counter, value: 0 } : counter));
+
+        const counter = counters[index];
+        setReminders(reminders.map(reminder => {
+            if (reminder.counterID === counter.id) {
+                return { ...reminder, value: reminder.frequency - 1 };
+            }
+            return reminder;
+        }));
     }
 
     /**
