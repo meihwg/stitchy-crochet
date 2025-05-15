@@ -5,12 +5,14 @@ import Counter from '../../windows/counter/counter';
 import Reminder from '../../windows/reminders/reminder';
 import Modal from '../../modal/modal';
 import { defaultCounters, defaultReminders } from '../../../data/data';
+import { useTranslation } from 'react-i18next';
 
 interface CounterItem {
     id: number;
     title: string;
     description: string;
     value: number;
+    translation: boolean;
 }
 
 interface ReminderItem {
@@ -20,6 +22,7 @@ interface ReminderItem {
     value: number;
     frequency: number;
     counterID: number;
+    translation: boolean;
 }
 
 const Counters: React.FC = () => {
@@ -27,20 +30,23 @@ const Counters: React.FC = () => {
     const [reminders, setReminders] = useState<ReminderItem[]>([]);
     const [isAddCounterModalOpen, setIsAddCounterModalOpen] = useState(false);
     const [isAddReminderModalOpen, setIsAddReminderModalOpen] = useState(false);
-    const [newCounter, setNewCounter] = useState<{ title: string; description: string }>({
+    const [newCounter, setNewCounter] = useState<{ title: string; description: string; translation: boolean }>({
         title: '',
-        description: ''
+        description: '',
+        translation: false
     });
     const [newReminder, setNewReminder] = useState<{
         title: string;
         description: string;
         frequency: number;
         counterID: number;
+        translation: boolean;
     }>({
         title: '',
         description: '',
         frequency: 1,
-        counterID: -1
+        counterID: -1,
+        translation: false
     });
 
     /**
@@ -51,7 +57,7 @@ const Counters: React.FC = () => {
     const handleAddCounter = (e: React.FormEvent) => {
         e.preventDefault();
         setCounters([...counters, { ...newCounter, value: 0, id: counters.length }]);
-        setNewCounter({ title: '', description: '' });
+        setNewCounter({ title: '', description: '', translation: false });
         setIsAddCounterModalOpen(false);
     }
 
@@ -94,7 +100,8 @@ const Counters: React.FC = () => {
             title: '',
             description: '',
             frequency: 1,
-            counterID: -1
+            counterID: -1,
+            translation: false
         });
         setIsAddReminderModalOpen(false);
     }
@@ -270,32 +277,61 @@ const Counters: React.FC = () => {
         saveReminders();
     }, [reminders]);
 
+    const { t } = useTranslation();
+
     return (
         <div className="dashboard">
             <div className="nav-secondary">
                 <button onClick={() => setIsAddCounterModalOpen(true)} className="action-button">
-                    Add a counter
+                    {t('add_counter')}
                 </button>
                 <button onClick={() => setIsAddReminderModalOpen(true)} className="action-button">
-                    Add a reminder
+                    {t('add_reminder')}
                 </button>
             </div>
             <div className="counters-container">
                 {counters.map((counter, index) => (
                     <div key={index} className="counter-group">
-                        <Counter 
-                            title={counter.title} 
-                            description={counter.description} 
-                            value={counter.value} 
-                            onIncrement={(value) => increment(index, value)} 
-                            onDecrement={(value) => decrement(index, value)} 
-                            onReset={() => reset(index)} 
-                            onDelete={() => removeCounter(index)} 
-                            onUpdate={(value) => onUpdateCounter(index, value)}
-                        />
+                        {counter.translation ?
+                            <Counter 
+                                title={t(counter.title)} 
+                                description={t(counter.description)} 
+                                value={counter.value} 
+                                onIncrement={(value) => increment(index, value)} 
+                                onDecrement={(value) => decrement(index, value)} 
+                                onReset={() => reset(index)} 
+                                onDelete={() => removeCounter(index)} 
+                                onUpdate={(value) => onUpdateCounter(index, value)}
+                            />
+                            :
+                            <Counter 
+                                title={counter.title} 
+                                description={counter.description} 
+                                value={counter.value} 
+                                onIncrement={(value) => increment(index, value)} 
+                                onDecrement={(value) => decrement(index, value)} 
+                                onReset={() => reset(index)} 
+                                onDelete={() => removeCounter(index)} 
+                                onUpdate={(value) => onUpdateCounter(index, value)}
+                            />
+                        }
                         {reminders
                             .filter(reminder => reminder.counterID === counter.id)
                             .map((reminder, reminderIndex) => (
+                                reminder.translation ?
+                                <Reminder 
+                                    key={reminderIndex} 
+                                    title={t(reminder.title)} 
+                                    description={t(reminder.description)} 
+                                    value={reminder.value}
+                                    frequency={reminder.frequency}
+                                    counterID={reminder.counterID}
+                                    counterTitle={counter.title}
+                                    onFrequencyChange={(change) => updateReminderFrequency(reminder.id, change)}
+                                    onDelete={() => removeReminder(reminder.id)}
+                                    counterTranslation={counter.translation}
+                                />
+                                : 
                                 <Reminder 
                                     key={reminderIndex} 
                                     title={reminder.title} 
@@ -306,6 +342,7 @@ const Counters: React.FC = () => {
                                     counterTitle={counter.title}
                                     onFrequencyChange={(change) => updateReminderFrequency(reminder.id, change)}
                                     onDelete={() => removeReminder(reminder.id)}
+                                    counterTranslation={counter.translation}
                                 />
                             ))
                         }
@@ -316,16 +353,16 @@ const Counters: React.FC = () => {
             <Modal 
                 isOpen={isAddCounterModalOpen}
                 onClose={() => setIsAddCounterModalOpen(false)}
-                title="Add a counter"
+                title={t('add_counter')}
             >
                 <form onSubmit={handleAddCounter}>
-                    <p>Add a counter to count stitches or rows, or anything else you want to count.
+                    <p>{t('add_counter_description')}
                         <br />
                         <br />
-                        You can create a decresing counter by editing the value after creating the counter. Then, you can decrement the counter to reach 0.
+                        {t('add_counter_description_2')}
                     </p>
                     <div className="form-group">
-                        <label htmlFor="counter-title">Counter name</label>
+                        <label htmlFor="counter-title">{t('counter_name')}</label>
                         <input
                             type="text"
                             id="counter-title"
@@ -335,7 +372,7 @@ const Counters: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="counter-description">Description</label>
+                        <label htmlFor="counter-description">{t('counter_description')}</label>
                         <textarea
                             id="counter-description"
                             value={newCounter.description}
@@ -349,10 +386,10 @@ const Counters: React.FC = () => {
                             className="secondary"
                             onClick={() => setIsAddCounterModalOpen(false)}
                         >
-                            Cancel
+                            {t('cancel')}
                         </button>
                         <button type="submit" className="primary">
-                            Add counter
+                            {t('add_counter')}
                         </button>
                     </div>
                 </form>
@@ -361,16 +398,16 @@ const Counters: React.FC = () => {
             <Modal 
                 isOpen={isAddReminderModalOpen}
                 onClose={() => setIsAddReminderModalOpen(false)}
-                title="Add a reminder"
+                title={t('add_reminder')}
             >
                 <form onSubmit={handleAddReminder}>
-                    <p>Add a reminder to remind you to do something at a specific frequency, it is associated with a counter.
+                    <p>{t('add_reminder_description')}
                         <br />
                         <br />
-                        For example, if you want to remind yourself to do an increase every 4 stitches, you can add a reminder with a frequency of 4 and a counter associated with the number of stitches.
+                        {t('add_reminder_description_2')}
                     </p>
                     <div className="form-group">
-                        <label htmlFor="reminder-title">Reminder name</label>
+                        <label htmlFor="reminder-title">{t('reminder_name')}</label>
                         <input
                             type="text"
                             id="reminder-title"
@@ -380,7 +417,7 @@ const Counters: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="reminder-description">Description</label>
+                        <label htmlFor="reminder-description">{t('reminder_description')}</label>
                         <textarea
                             id="reminder-description"
                             value={newReminder.description}
@@ -389,7 +426,7 @@ const Counters: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="reminder-frequency">Frequency</label>
+                        <label htmlFor="reminder-frequency">{t('reminder_frequency')}</label>
                         <input
                             type="number"
                             id="reminder-frequency"
@@ -400,14 +437,14 @@ const Counters: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="reminder-counter">Associated counter</label>
+                        <label htmlFor="reminder-counter">{t('reminder_counter')}</label>
                         <select
                             id="reminder-counter"
                             value={newReminder.counterID}
                             onChange={(e) => setNewReminder({ ...newReminder, counterID: parseInt(e.target.value) })}
                             required
                         >
-                            <option value="-1">Select a counter</option>
+                            <option value="-1">{t('select_counter')}</option>
                             {counters.map((counter, index) => (
                                 <option key={index} value={index}>
                                     {counter.title}
@@ -421,14 +458,14 @@ const Counters: React.FC = () => {
                             className="secondary"
                             onClick={() => setIsAddReminderModalOpen(false)}
                         >
-                            Cancel
+                            {t('cancel')}
                         </button>
                         <button 
                             type="submit" 
                             className="primary"
                             disabled={newReminder.counterID === -1}
                         >
-                            Add reminder
+                            {t('add_reminder')}
                         </button>
                     </div>
                 </form>

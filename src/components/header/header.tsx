@@ -9,31 +9,43 @@ import Sheets from '../pages/sheets/sheets';
 import Settings from '../pages/settings/settings';
 import About from '../pages/about/about';
 
+import { useTranslation } from 'react-i18next';
+
 const Header: React.FC = () => {
+    const { t, i18n } = useTranslation();
+
+    const switchTo = (lang: string) => i18n.changeLanguage(lang);
+
     return (
         <Router>
             <header>
                 <div className="header-title">
                     <h1>Stitchy</h1> -
-                    <h4>Your crochet friend</h4>
+                    <h4>{t('description')}</h4>
                 </div>
                 <div className="header-nav">
                     <ul>
                         <li><NavLink to="/" end className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
-                            Home</NavLink>
+                            {t('home')}</NavLink>
                         </li>
                         <li><NavLink to="/counters" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
-                            Counters</NavLink>
+                            {t('counters')}</NavLink>
                         </li>
                         <li>
                             <NavLink to="/sheets" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
-                            Cheat sheets</NavLink>
+                            {t('sheets')}</NavLink>
                         </li>
                         <li><NavLink to="/settings" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
-                            Settings</NavLink>
+                            {t('settings')}</NavLink>
                         </li>
                         <li><NavLink to="/about" className={({ isActive }: { isActive: boolean }) => isActive ? 'active' : ''}>
-                            About</NavLink>
+                            {t('about')}</NavLink>
+                        </li>
+                        <li>
+                            <div className="language-selector">
+                                <button onClick={() => switchTo('en')} className={i18n.language === 'en' ? 'active' : ''} title="Switch to English"><div className="icon-uk"></div></button>
+                                <button onClick={() => switchTo('fr')} className={i18n.language === 'fr' ? 'active' : ''} title="Passer à français"><div className="icon-fr"></div></button>
+                            </div>
                         </li>
                     </ul>
                 </div>

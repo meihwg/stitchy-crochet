@@ -2,6 +2,7 @@ import React from 'react';
 import './reminder.scss';
 
 import { Trash } from '@phosphor-icons/react';
+import { useTranslation } from 'react-i18next';
 
 interface ReminderProps {
     title: string;
@@ -12,6 +13,7 @@ interface ReminderProps {
     counterTitle: string;
     onFrequencyChange: (change: number) => void;
     onDelete: () => void;
+    counterTranslation: boolean;
 }
 
 const Reminder: React.FC<ReminderProps> = ({ 
@@ -22,8 +24,11 @@ const Reminder: React.FC<ReminderProps> = ({
     counterID, 
     counterTitle, 
     onFrequencyChange,
-    onDelete 
+    onDelete,
+    counterTranslation
 }) => {
+    const { t } = useTranslation();
+
     return (
         <div className={`reminder ${value === 0 ? 'alert' : ''}`}>
             <div className="reminder-header">
@@ -36,7 +41,7 @@ const Reminder: React.FC<ReminderProps> = ({
             <div className="reminder-info">
                 <div className="frequency-control">
                     <button onClick={() => onFrequencyChange(-1)} disabled={frequency <= 1}>-</button>
-                    <span>Each <p>{frequency}</p> {counterTitle.toLowerCase()}</span>
+                    <span>{t('each')} <p>{frequency}</p> {counterTranslation ? t(counterTitle) : counterTitle}</span>
                     <button onClick={() => onFrequencyChange(1)}>+</button>
                 </div>
                 <span className="reminder-value">{value}</span>
