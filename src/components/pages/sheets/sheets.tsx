@@ -3,6 +3,7 @@ import './sheets.scss';
 
 import { sheets } from '../../../data/datasheets';
 import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 interface Sheet {
     id: number;
@@ -36,15 +37,17 @@ const Sheets: React.FC = () => {
             // Filtre par tags
             const matchesTags = selectedTags.length === 0 || 
                 selectedTags.every(tag => sheet.tags.includes(tag));
+
+            const searchLower = searchQuery.toLowerCase();
             
             // Filtre par recherche
             const matchesSearch = searchQuery === '' || 
-                sheet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                (sheet.abbreviation[notation]?.toLowerCase() || '').includes(searchQuery.toLowerCase());
+                t(sheet.title).toLowerCase().includes(searchLower) ||
+                (sheet.abbreviation[notation]?.toLowerCase() || '').includes(searchLower);
             
             return matchesTags && matchesSearch;
         });
-    }, [selectedTags, searchQuery, notation]);
+    }, [selectedTags, searchQuery, notation, t, i18n.language]);
 
     // Gérer la sélection/désélection des tags
     const toggleTag = (tag: string) => {
